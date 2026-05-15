@@ -43,6 +43,7 @@ def validate_password(value):
             
     return value
 
+
 # User Registration with OTP verification, including validation and email sending
 # class UserRegistrationAPI(APIView):
 #     def post(self, request):
