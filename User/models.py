@@ -117,16 +117,19 @@ class MediaFile(models.Model):
 
 # NOTIFICATION MODEL
 class Notification(models.Model):
-    NOTIFICATION_TYPE = (('Email', 'Email'),('Push', 'Push'))
-    STATUS = (('Unread', 'Unread'),('Read', 'Read'))
+    NOTIFICATION_TYPE = (('Email', 'Email'),('Push', 'Push'),)
+    STATUS = (('Unread', 'Unread'),('Read', 'Read'),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User_Master, on_delete=models.CASCADE)
-    notification_type = models.CharField(max_length=10, choices=NOTIFICATION_TYPE)
+    sender = models.ForeignKey(User_Master,on_delete=models.CASCADE,related_name='sent_notifications')
+    receiver = models.ForeignKey(User_Master,on_delete=models.CASCADE,related_name='received_notifications')
+    notification_type = models.CharField(max_length=20,choices=NOTIFICATION_TYPE)
     title = models.CharField(max_length=255)
     message = models.TextField()
-    status = models.CharField(max_length=10, choices=STATUS, default='Unread')
+    email_sent = models.BooleanField(default=False)
+    status = models.CharField(max_length=10,choices=STATUS,default='Unread')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     class Meta:
         db_table = 'notifications'
 
