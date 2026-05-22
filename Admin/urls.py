@@ -38,4 +38,6 @@ urlpatterns = [
     path('Admin-Send-Notification',SendNotificationAPI.as_view()),
     path('GetAll-Notifications',NotificationHistoryAPI.as_view())
 
+
+
 ]

@@ -485,7 +485,7 @@ class SortProductAPI(APIView):
                 return Response({'status': 0,'message': 'No products found','data':None}, status=200)
 
             serializer = ProductSerializer(products, many=True)
-
+            print("//////////////////////")
             return Response({
                 'status': 1,
                 'message': 'Products sorted successfully',
@@ -493,3 +493,5 @@ class SortProductAPI(APIView):
 
         except Exception as e:
             return Response({'status': 0,'message': str(e),'data': None}, status=200)
+        
+
