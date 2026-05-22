@@ -715,7 +715,7 @@ class ProductListAPI(APIView):
             return paginator.get_paginated_response(serializer.data)
 
         except Exception as e:
-            return Response({'status': 0,'message': str(e),'data': None}, status=500)
+            return Response({'status': 0,'message': str(e),'data': None}, status=200)
 
 # UPDATE PRODUCT API
 class UpdateProductAPI(APIView):
@@ -808,16 +808,16 @@ class SendNotificationAPI(APIView):
             message = request.data.get('message')
 
             if not title:
-                return Response({'status': 0,'message': 'title is required',"data":None}, status=400)
+                return Response({'status': 0,'message': 'title is required',"data":None}, status=200)
 
             if not message:
-                return Response({'status': 0,'message': 'message is required',"data":None}, status=400)
+                return Response({'status': 0,'message': 'message is required',"data":None}, status=200)
 
             # ALL ACTIVE USERS
             users = User_Master.objects.filter(status='Active')
 
             if not users.exists():
-                return Response({'status': 0,'message': 'No users found',"data":None}, status=404)
+                return Response({'status': 0,'message': 'No users found',"data":None}, status=200)
 
             count = 0
 

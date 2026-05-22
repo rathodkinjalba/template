@@ -75,7 +75,6 @@ class AdminLoginOTP(models.Model):
     class Meta:
         db_table = 'Login_otp'
 
-
 # this model use in forgot password and reset password api, because both api use otp for verification. 
 class User_OTP_Master(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -158,3 +157,4 @@ class Product(models.Model):
 
     class Meta:
         db_table = 'products'
+        

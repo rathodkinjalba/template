@@ -15,7 +15,6 @@ urlpatterns = [
     path('api/v1/change-password', Reset_Password_API.as_view()),
 
     path('api/v1/update-profile', UserUpdateProfileAPI.as_view()),
-
     path('api/v1/logout', LogoutAPI.as_view()),
 
     path('media-file-list/',MediaFileListAPI.as_view(),name='media-file-list'),
@@ -24,13 +23,9 @@ urlpatterns = [
     path('products/',ProductListAPI.as_view(),name='product-list'),
     path('products/<uuid:id>/',ProductListAPI.as_view(),name='single-product'),
 
-
     path('filter-products/', ProductFilterAPI.as_view()),
-
     path('sort-products/', SortProductAPI.as_view()),
     
-
-
 ]
 
 
