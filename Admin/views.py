@@ -38,13 +38,9 @@ def send_notification_email(subject, message, email):
 
     send_mail(
         subject=subject,
-
         message=message,
-
         from_email=settings.EMAIL_HOST_USER,
-
         recipient_list=[email],
-
         fail_silently=False
     )
 
@@ -292,7 +288,6 @@ class ForgotPasswordAPI(APIView):
             send_otp_email(user.email, otp)
 
             return Response({'status': 1,'message': 'OTP sent to your email','data':[{'otp expired in': '3 min'}]}, status=200)
-
         except Exception as e:
             return Response({'status': 0, 'message': 'Internal Server Error', 'data': None},status=200)            
 
@@ -339,7 +334,6 @@ class Resend_Forgot_Otp_API(APIView):
                 'data': {
                     'email': user.email,
                     'otp_valid_till': email_otp.otp_time_limit.strftime("%Y-%m-%d %H:%M:%S"),}}, status=200)
-        
         except Exception as e:
             return Response({'status': 0, 'message': 'Internal Server Error', 'data': None}, status=200)
 
@@ -414,7 +408,6 @@ class LogoutAPI(APIView):
             token.blacklist()
 
             return Response({'status': 1,'message': 'Logout successful'}, status=200)
-
         except Exception as e:
             return Response({'status': 0,'message': 'Invalid token',"data": None}, status=200)
         
@@ -454,7 +447,6 @@ class UploadMediaFileAPI(APIView):
 
             try:
                 user = User_Master.objects.get(id=user_id)
-
             except User_Master.DoesNotExist:
                 return Response({'status': 0,'message': 'User not found',"data":None}, status=200)
 
@@ -529,7 +521,6 @@ class MediaFileListAPI(APIView):
             serializer = MediaFileSerializer(paginated_files,many=True,context={'request': request})
 
             return paginator.get_paginated_response(serializer.data)
-
         except Exception as e:
             return Response({'status': 0,'message': str(e),'data': None}, status=200)
 
@@ -594,7 +585,6 @@ class UpdateMediaFileAPI(APIView):
             serializer = MediaFileSerializer(media_file,context={'request': request})
 
             return Response({'status': 1,'message': 'Media file updated successfully','data': serializer.data}, status=200)
-
         except Exception as e:
             return Response({'status': 0,'message': 'Internal Server Error','data': None}, status=200)
         
@@ -679,8 +669,7 @@ class CreateProductAPI(APIView):
             serializer = ProductSerializer(product_obj,context={'request': request})
 
             return Response({'status': 1,'message': 'Product created successfully','data': serializer.data}, status=200)
-
-        except Exception as e:
+        except Exception:
             return Response({'status': 0,'message': 'Internal Server Error','data': None}, status=200)
 
 # PRODUCT LIST + SINGLE PRODUCT API
@@ -713,7 +702,6 @@ class ProductListAPI(APIView):
             serializer = ProductSerializer(paginated_products,many=True,context={'request': request})
 
             return paginator.get_paginated_response(serializer.data)
-
         except Exception as e:
             return Response({'status': 0,'message': str(e),'data': None}, status=200)
 
@@ -820,7 +808,6 @@ class SendNotificationAPI(APIView):
                 return Response({'status': 0,'message': 'No users found',"data":None}, status=200)
 
             count = 0
-
             for user in users:
                 # SEND EMAIL
                 send_notification_email(
@@ -865,7 +852,6 @@ class NotificationHistoryAPI(APIView):
                 })
 
             return Response({'status': 1,'message': 'Notification history fetched successfully','data': data}, status=200)
-
         except Exception as e:
             return Response({'status': 0,'message': str(e),'data': None}, status=200)
         
